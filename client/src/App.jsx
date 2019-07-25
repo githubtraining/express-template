@@ -10,7 +10,7 @@ class App extends React.Component {
       buttonClicked: "",
       assignments: [],
       students: [],
-      grades: {},
+      grades: {}
     };
 
     this.handleButtonClicked = this.handleButtonClicked.bind(this);
@@ -21,27 +21,13 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getAssignments();
-    this.getStudents();
-    this.getGrades();
   }
 
   async getAssignments() {
     const response = await fetch("/assignments");
     const body = await response.json();
     this.setState({ assignments: body.assignments });
-  };
-
-  async getStudents() {
-    const response = await fetch("/students");
-    const body = await response.json();
-    this.setState({ students: body.students });
-  };
-
-  async getGrades() {
-    const response = await fetch("/grades");
-    const body = await response.json();
-    this.setState({ grades: body.grades});
-  };
+  }
 
   handleButtonClicked(buttonName) {
     this.setState({
@@ -50,29 +36,22 @@ class App extends React.Component {
   }
 
   async addAssignment(assignmentName) {
-    const response = await fetch('/assignments', {
-      method: 'POST',
+    const response = await fetch("/assignments", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         assignmentName
       })
     });
-    this.getAssignments();
+    this.setState({
+      assignments: this.state.assignments.concat(assignmentName)
+    });
   }
 
   async addStudent(studentName) {
-    const response = await fetch('/students', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        studentName
-      })
-    });
-    this.getStudents();
+    this.setState({ students: this.state.students.concat(studentName) });
   }
 
   addGrade(assignment, student, score) {
@@ -88,14 +67,6 @@ class App extends React.Component {
 
   async saveGrades() {
     let grades = this.state.grades;
-    const response = await fetch('/grades', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({grades})
-    });
-    this.getGrades();
   }
 
   render() {
@@ -130,15 +101,22 @@ class App extends React.Component {
     if (this.state.buttonClicked === "grades") {
       tabChoice = (
         <div>
-        <Table
-          tableNames={this.state.assignments}
-          rows={this.state.students}
-          addFunction={this.addGrade}
-          data={this.state.grades}
-        />
-        <form onSubmit={this.saveGrades}>
-          <input className="btn btn-sm" type="submit" value="Save Grades" />
-        </form>
+          <Table
+            tableNames={this.state.assignments}
+            rows={this.state.students}
+            addFunction={this.addGrade}
+            data={this.state.grades}
+          />
+          <form
+            onSubmit={this.saveGrades}
+            className="d-flex flex-justify-center pt-6"
+          >
+            <input
+              className="btn btn-sm d-flex"
+              type="submit"
+              value="Save Grades"
+            />
+          </form>
         </div>
       );
     }
