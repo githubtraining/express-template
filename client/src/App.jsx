@@ -21,6 +21,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getAssignments();
+    /* Add function calls */
   }
 
   async getAssignments() {
@@ -28,6 +29,8 @@ class App extends React.Component {
     const body = await response.json();
     this.setState({ assignments: body.assignments });
   }
+
+  /*Add functions*/
 
   handleButtonClicked(buttonName) {
     this.setState({
@@ -51,6 +54,7 @@ class App extends React.Component {
   }
 
   async addStudent(studentName) {
+    /*make a post request*/
     this.setState({ students: this.state.students.concat(studentName) });
   }
 
@@ -66,6 +70,7 @@ class App extends React.Component {
   }
 
   async saveGrades() {
+    /*make a post request*/
     let grades = this.state.grades;
   }
 

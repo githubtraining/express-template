@@ -14,10 +14,19 @@ app.get("/assignments", (req, res) => {
   res.send({ assignments: database.assignments });
 });
 
+/*Add a get request for /students */
+
+/*Add a get request for /grades*/
+
+
 app.post("/assignments", (req, res) => {
   const { assignmentName } = req.body;
   database.assignments.push(assignmentName);
   res.send("success");
 });
+
+/*Add a post request for /students*/
+
+/*Add a post request for grades*/
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
