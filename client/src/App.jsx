@@ -72,7 +72,6 @@ class App extends React.Component {
   render() {
     let tabChoice = <div />;
 
-    /*Uncomment below for step 2*/
     if (this.state.buttonClicked === "assignments") {
       tabChoice = (
         <List
@@ -83,8 +82,6 @@ class App extends React.Component {
         />
       );
     }
-
-    /* Change below for step 4*/
 
     if (this.state.buttonClicked === "students") {
       tabChoice = (
@@ -97,7 +94,6 @@ class App extends React.Component {
       );
     }
 
-    /* Uncomment lines below for step 3*/
     if (this.state.buttonClicked === "grades") {
       tabChoice = (
         <div>
